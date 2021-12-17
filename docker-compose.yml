@@ -1,0 +1,44 @@
+version: '3'
+services: 
+    web:
+        build: 
+            context: .
+            dockerfile: apacheDocker
+        container_name: web
+        
+        environment:
+         DATABASE_HOST: db
+         DATABASE_USER: hepta
+         DATABASE_PASSWORD: hepta
+         DATABASE_NAME: treino-hepta
+         DATABASE_PORT: "3306"
+         
+        ports:
+         - "8080:8080"
+         
+        depends_on:
+         - db
+         
+        links:
+         - db
+         
+        networks:
+         - bridge
+         
+    db:
+        build:
+            context: .
+            dockerfile: mysqlDocker
+        container_name: db
+
+        volumes:
+         - //d/Files:/files/
+        
+        ports:
+         - "3306:3306" 
+        
+        networks:
+         - bridge
+
+networks:
+    bridge:

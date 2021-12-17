@@ -1,0 +1,11 @@
+FROM mysql
+
+ENV MYSQL_DATABASE treino-hepta
+ENV MYSQL_USER=hepta
+ENV MYSQL_PASSWORD=hepta
+ENV MYSQL_ROOT_PASSWORD=hepta
+
+COPY scripts/initdb.sql /docker-entrypoint-initdb.d/
+COPY scripts/popdb.sql /docker-entrypoint-initdb.d/
+
+EXPOSE 3306
